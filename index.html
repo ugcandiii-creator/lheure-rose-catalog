@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Heure Rose Vintage Boutique | 2026 Price Catalog</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rose-gold': '#B76E79',
+                        'rose-gold-light': '#E8C5C8',
+                        'rose-gold-dark': '#8E4A53',
+                        'champagne': '#FAF6F0',
+                        'champagne-card': '#FFFDF9',
+                        'navy-vintage': '#1B2430',
+                        'blush': '#F9ECEC',
+                        'gold-accent': '#D4AF37'
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        playfair: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .vintage-border {
+            border: 1px solid rgba(183, 110, 121, 0.25);
+        }
+        .vintage-shadow {
+            box-shadow: 0 10px 30px -10px rgba(27, 36, 48, 0.08);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #B76E79 0%, #D4AF37 50%, #B76E79 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #1B2430 0%, #2D3A4C 100%);
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #B76E79 0%, #8E4A53 100%);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E8C5C8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B76E79;
+        }
+    </style>
+</head>
+<body class="bg-champagne text-slate-800 font-sans min-h-screen flex flex-col selection:bg-rose-gold-light selection:text-navy-vintage">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-navy-vintage text-rose-gold-light text-xs tracking-widest py-2 px-4 text-center font-cinzel border-b border-rose-gold/20">
+        ✨ L'HEURE ROSE VINTAGE BOUTIQUE • EST. 2026 • 100% AUTHENTIC LUXURY FRAGRANCES ✨
+    </div>
+
+    <!-- HEADER & NAVBAR -->
+    <header class="sticky top-0 z-40 bg-champagne/90 backdrop-blur-md border-b border-rose-gold/20 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            
+            <!-- LOGO -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
+                <div class="w-12 h-12 rounded-full border-2 border-rose-gold overflow-hidden bg-blush shadow-md flex items-center justify-center shrink-0">
+                    <img src="image.png" alt="L'Heure Rose Emblem Logo" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onerror="this.onerror=null; this.parentElement.innerHTML='🌹';">
+                </div>
+                <div>
+                    <h1 class="font-cinzel tracking-wider text-xl sm:text-2xl font-bold text-navy-vintage uppercase">
+                        L'Heure Rose
+                    </h1>
+                    <p class="text-[10px] tracking-widest text-rose-gold font-cinzel uppercase font-semibold">Vintage Boutique 2026</p>
+                </div>
+            </div>
+
+            <!-- SEARCH BAR (DESKTOP) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                <input type="text" id="searchInputDesktop" oninput="handleSearch(this.value)" placeholder="Search fragrance, brand, or notes..." 
+                    class="w-full pl-10 pr-4 py-2 text-sm bg-white/80 border border-rose-gold/30 rounded-full focus:outline-none focus:border-rose-gold focus:ring-1 focus:ring-rose-gold transition-all">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-rose-gold/60 text-sm"></i>
+                <button id="clearSearchDesktop" onclick="clearSearch()" class="hidden absolute right-3 top-2.5 text-xs text-gray-400 hover:text-navy-vintage">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- CART / INQUIRY TRIGGER BUTTON -->
+            <button onclick="toggleCartDrawer(true)" class="relative p-2.5 rounded-full bg-blush text-navy-vintage border border-rose-gold/30 hover:bg-rose-gold hover:text-white transition-all duration-200 flex items-center space-x-2 px-4 shadow-sm">
+                <i class="fa-solid fa-bag-shopping text-rose-gold hover:text-white"></i>
+                <span class="font-cinzel text-xs font-semibold tracking-wider hidden sm:inline">WISHLIST</span>
+                <span id="cartBadge" class="bg-rose-gold text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </button>
+        </div>
+
+        <!-- SEARCH BAR (MOBILE) -->
+        <div class="px-4 pb-3 md:hidden">
+            <div class="relative">
+                <input type="text" id="searchInputMobile" oninput="handleSearch(this.value)" placeholder="Search fragrances..." 
+                    class="w-full pl-10 pr-4 py-2 text-sm bg-white/80 border border-rose-gold/30 rounded-full focus:outline-none focus:border-rose-gold">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-rose-gold/60 text-sm"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-blush/40 to-champagne py-12 md:py-16 border-b border-rose-gold/10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center">
+            
+            <!-- VINTAGE EMBLEM LOGO BANNER DISPLAY -->
+            <div class="relative mb-6">
+                <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-rose-gold via-gold-accent to-rose-gold-dark shadow-xl">
+                    <img src="image.png" alt="L'Heure Rose Official Emblem" class="w-full h-full object-cover rounded-full bg-champagne border-2 border-white" onerror="this.onerror=null; this.src='https://placehold.co/200x200/F9ECEC/8E4A53?text=L%27Heure+Rose';">
+                </div>
+                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-navy-vintage text-rose-gold-light text-[9px] font-cinzel font-bold px-3 py-0.5 rounded-full border border-rose-gold/40 shadow-sm uppercase tracking-widest whitespace-nowrap">
+                    EST. 2026
+                </div>
+            </div>
+
+            <span class="text-xs font-cinzel uppercase tracking-widest text-rose-gold font-bold px-3 py-1 bg-white/60 rounded-full border border-rose-gold/20 inline-block mb-3">
+                Curated Luxury Fragrance Catalog 2026
+            </span>
+            <h2 class="font-playfair text-3xl sm:text-5xl lg:text-6xl text-navy-vintage font-bold tracking-tight mb-4 italic">
+                Indulge in Timeless Elegance
+            </h2>
+            <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-8">
+                Discover authentic luxury perfumes at exclusive boutique pricing. Enjoy savings up to <span class="font-semibold text-rose-gold-dark">₱6,400+</span> compared to standard retail prices.
+            </p>
+
+            <!-- KEY METRICS STATS BAR -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto bg-white/70 backdrop-blur border border-rose-gold/20 rounded-2xl p-4 sm:p-6 shadow-sm">
+                <div class="p-2 border-r border-rose-gold/10 last:border-none">
+                    <p class="font-cinzel text-xl sm:text-2xl font-bold text-navy-vintage" id="statTotalItems">54</p>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Curated Scents</p>
+                </div>
+                <div class="p-2 border-r border-rose-gold/10 last:border-none">
+                    <p class="font-cinzel text-xl sm:text-2xl font-bold text-rose-gold">₱6,400</p>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Max Savings</p>
+                </div>
+                <div class="p-2 border-r border-rose-gold/10 last:border-none">
+                    <p class="font-cinzel text-xl sm:text-2xl font-bold text-navy-vintage">100%</p>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Authentic Guaranteed</p>
+                </div>
+                <div class="p-2">
+                    <p class="font-cinzel text-xl sm:text-2xl font-bold text-rose-gold">2026</p>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Price Edition</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CATALOG CONTAINER -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- CONTROLS & FILTER BAR -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            
+            <!-- CATEGORY TABS -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar" id="categoryTabs">
+                <!-- JavaScript generated tabs -->
+            </div>
+
+            <!-- SORT DROPDOWN & VIEW TOGGLE -->
+            <div class="flex items-center justify-between md:justify-end space-x-3">
+                <div class="flex items-center space-x-2">
+                    <label for="sortBy" class="text-xs font-cinzel text-slate-500 font-semibold uppercase">Sort:</label>
+                    <select id="sortBy" onchange="handleSort(this.value)" class="bg-white border border-rose-gold/30 rounded-lg px-3 py-1.5 text-xs text-navy-vintage font-medium focus:outline-none focus:border-rose-gold shadow-sm">
+                        <option value="default">Default Order</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="savings-desc">Highest Savings</option>
+                        <option value="name-asc">Name: A to Z</option>
+                    </select>
+                </div>
+
+                <!-- VIEW TOGGLE (GRID vs TABLE) -->
+                <div class="flex border border-rose-gold/30 rounded-lg overflow-hidden bg-white">
+                    <button onclick="setViewMode('grid')" id="viewGridBtn" class="p-2 px-3 text-xs text-rose-gold bg-blush font-semibold transition-all">
+                        <i class="fa-solid fa-grip"></i>
+                    </button>
+                    <button onclick="setViewMode('table')" id="viewTableBtn" class="p-2 px-3 text-xs text-slate-400 hover:text-navy-vintage transition-all">
+                        <i class="fa-solid fa-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH STATUS INFO BAR -->
+        <div id="statusInfoBar" class="hidden mb-6 flex items-center justify-between bg-blush/60 border border-rose-gold/20 rounded-xl px-4 py-2.5 text-xs text-navy-vintage">
+            <span>Showing results for "<strong id="searchQueryTerm"></strong>" (<span id="resultCount">0</span> items)</span>
+            <button onclick="clearSearch()" class="text-rose-gold font-semibold underline hover:text-navy-vintage">Clear Filters</button>
+        </div>
+
+        <!-- GRID CONTAINER -->
+        <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Product Cards Inserted Here via JS -->
+        </div>
+
+        <!-- TABLE VIEW CONTAINER (HIDDEN BY DEFAULT) -->
+        <div id="catalogTableWrapper" class="hidden overflow-x-auto bg-white rounded-2xl border border-rose-gold/20 shadow-sm">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-navy-vintage text-rose-gold-light font-cinzel text-xs tracking-wider border-b border-rose-gold/20">
+                        <th class="p-4">Fragrance & Details</th>
+                        <th class="p-4">Category</th>
+                        <th class="p-4">Size</th>
+                        <th class="p-4">Boutique Price</th>
+                        <th class="p-4">Mall Price</th>
+                        <th class="p-4">Your Savings</th>
+                        <th class="p-4 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="catalogTableBody" class="divide-y divide-rose-gold/10 text-xs text-slate-700">
+                    <!-- Table Rows Inserted Here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div id="emptyState" class="hidden text-center py-16 bg-white/50 rounded-2xl border border-dashed border-rose-gold/30">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blush flex items-center justify-center text-rose-gold text-2xl">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h3 class="font-cinzel text-lg font-bold text-navy-vintage">No Fragrances Found</h3>
+            <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">We couldn't find any items matching your current filters or search terms.</p>
+            <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-navy-vintage text-white text-xs font-cinzel rounded-full hover:bg-rose-gold transition-all">
+                Reset All Filters
+            </button>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-vintage text-white mt-16 border-t border-rose-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-white/10">
+                <div class="flex flex-col space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <img src="image.png" alt="L'Heure Rose Emblem" class="w-10 h-10 rounded-full border border-rose-gold object-cover" onerror="this.onerror=null; this.style.display='none';">
+                        <h3 class="font-cinzel text-lg font-bold tracking-widest text-rose-gold-light">L'HEURE ROSE</h3>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Curating authentic luxury & niche fragrances at unbeatable prices. Guaranteed 100% original designer scents delivered directly to your doorstep.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-cinzel text-xs tracking-widest uppercase text-rose-gold-light font-bold mb-3">Authenticity & Quality</h4>
+                    <ul class="text-xs text-slate-300 space-y-2">
+                        <li><i class="fa-solid fa-circle-check text-rose-gold mr-2"></i> 100% Original Batch Codes</li>
+                        <li><i class="fa-solid fa-circle-check text-rose-gold mr-2"></i> Factory Sealed & Testers Available</li>
+                        <li><i class="fa-solid fa-circle-check text-rose-gold mr-2"></i> Direct Import Pricing</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-cinzel text-xs tracking-widest uppercase text-rose-gold-light font-bold mb-3">Order & Inquiries</h4>
+                    <p class="text-xs text-slate-300 mb-3">To reserve or order items, add scents to your Wishlist drawer and click "Generate Inquiry Order".</p>
+                    <div class="flex space-x-3 text-rose-gold-light">
+                        <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm"><i class="fa-brands fa-instagram"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm"><i class="fa-brands fa-whatsapp"></i></span>
+                        <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm"><i class="fa-solid fa-phone"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-[11px] text-slate-400 font-cinzel">
+                © 2026 L'Heure Rose Vintage Boutique. All Rights Reserved. Prices subject to inventory availability.
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART / WISHLIST DRAWER MODAL -->
+    <div id="cartDrawerOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleCartDrawer(false)"></div>
+    
+    <div id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-champagne z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Drawer Header -->
+        <div class="p-5 bg-navy-vintage text-white flex items-center justify-between border-b border-rose-gold/20">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-bag-shopping text-rose-gold"></i>
+                <h3 class="font-cinzel font-bold text-sm tracking-wider uppercase">Your Fragrance Wishlist</h3>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="text-slate-400 hover:text-white p-1 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Items Container -->
+        <div class="flex-grow overflow-y-auto p-5 space-y-4" id="cartItemsList">
+            <!-- Dynamic Cart Items -->
+        </div>
+
+        <!-- Drawer Footer & Calculation -->
+        <div class="p-5 bg-white border-t border-rose-gold/20 shadow-lg">
+            <div class="space-y-2 mb-4 text-xs">
+                <div class="flex justify-between text-slate-500">
+                    <span>Retail Total (Mall Price):</span>
+                    <span id="cartMallTotal" class="line-through">₱0</span>
+                </div>
+                <div class="flex justify-between font-bold text-navy-vintage text-sm">
+                    <span>Boutique Price Total:</span>
+                    <span id="cartOurTotal" class="text-rose-gold-dark text-base">₱0</span>
+                </div>
+                <div class="flex justify-between text-emerald-700 bg-emerald-50 p-2 rounded-lg font-medium border border-emerald-200">
+                    <span><i class="fa-solid fa-sparkles mr-1"></i> Total Savings:</span>
+                    <span id="cartSavingsTotal" class="font-bold">₱0</span>
+                </div>
+            </div>
+
+            <!-- Inquiry Template Selector -->
+            <div class="mb-4">
+                <label for="platformSelect" class="block text-[11px] font-cinzel font-semibold text-slate-500 mb-1">Choose Inquiry Channel:</label>
+                <select id="platformSelect" class="w-full bg-champagne border border-rose-gold/30 rounded-lg p-2 text-xs font-medium text-navy-vintage focus:outline-none">
+                    <option value="instagram">Instagram Direct Message</option>
+                    <option value="viber">Viber Message</option>
+                    <option value="whatsapp">WhatsApp Order</option>
+                </select>
+            </div>
+
+            <button onclick="generateOrderInquiry()" class="w-full btn-gradient text-white font-cinzel text-xs font-bold py-3 px-4 rounded-xl shadow-md transition-all flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>SEND ORDER INQUIRY</span>
+            </button>
+
+            <button onclick="clearCart()" class="w-full text-center text-[11px] text-slate-400 hover:text-rose-gold mt-2 py-1 font-medium">
+                Clear Wishlist
+            </button>
+        </div>
+    </div>
+
+    <!-- INQUIRY MESSAGE MODAL -->
+    <div id="inquiryModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-rose-gold/30">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b border-rose-gold/20">
+                <h3 class="font-cinzel text-sm font-bold text-navy-vintage uppercase">Generated Order Inquiry</h3>
+                <button onclick="closeInquiryModal()" class="text-slate-400 hover:text-navy-vintage"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-600 mb-3">Copy this formatted text to send directly to <strong>L'Heure Rose Vintage Boutique</strong> via your preferred messenger app:</p>
+            
+            <textarea id="inquiryTextarea" rows="8" class="w-full bg-champagne border border-rose-gold/20 rounded-xl p-3 text-xs font-mono text-slate-700 focus:outline-none focus:border-rose-gold" readonly></textarea>
+
+            <div class="mt-4 flex space-x-3">
+                <button onclick="copyInquiryText()" id="copyBtn" class="flex-1 bg-navy-vintage hover:bg-rose-gold text-white font-cinzel text-xs py-2.5 rounded-xl transition-all">
+                    <i class="fa-regular fa-copy mr-1"></i> Copy Message
+                </button>
+                <button onclick="closeInquiryModal()" class="px-4 border border-rose-gold/30 text-xs font-cinzel text-slate-600 rounded-xl hover:bg-blush">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-navy-vintage text-white px-5 py-3 rounded-xl shadow-xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3 text-xs border border-rose-gold/30">
+        <i class="fa-solid fa-circle-check text-rose-gold text-base"></i>
+        <span id="toastMessage">Item added to wishlist</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // PARSED CATALOG DATA FROM PDF
+        const catalogData = [
+            // FOR HIM
+            { id: 1, name: "Armani Stronger With You Intensely", category: "him", size: "100ml", price: 7600, mallPrice: 8800, savings: 1200, brand: "Armani" },
+            { id: 2, name: "Chanel Bleu de Chanel EDP", category: "him", size: "100ml", price: 11300, mallPrice: 13500, savings: 2200, brand: "Chanel" },
+            { id: 3, name: "Chanel Bleu de Chanel Parfum", category: "him", size: "100ml", price: 12500, mallPrice: 14700, savings: 2200, brand: "Chanel" },
+            { id: 4, name: "Dior Sauvage EDT", category: "him", size: "100ml", price: 7600, mallPrice: 8200, savings: 600, brand: "Dior" },
+            { id: 5, name: "Dior Sauvage EDP", category: "him", size: "100ml", price: 10300, mallPrice: 10500, savings: 200, brand: "Dior" },
+            { id: 6, name: "Dolce & Gabbana Light Blue Pour Homme EDT", category: "him", size: "100ml", price: 5600, mallPrice: 6500, savings: 900, brand: "Dolce & Gabbana" },
+            { id: 7, name: "Dolce & Gabbana Light Blue Capri in Love", category: "him", size: "100ml", price: 5900, mallPrice: 7200, savings: 1300, brand: "Dolce & Gabbana" },
+            { id: 8, name: "Dolce & Gabbana The One EDP", category: "him", size: "100ml", price: 6100, mallPrice: 7500, savings: 1400, brand: "Dolce & Gabbana" },
+            { id: 9, name: "Montblanc Explorer EDP", category: "him", size: "100ml", price: 5600, mallPrice: 6200, savings: 600, brand: "Montblanc" },
+            { id: 10, name: "Valentino Uomo Born in Roma Intense", category: "him", size: "100ml", price: 8300, mallPrice: 9200, savings: 900, brand: "Valentino" },
+            { id: 11, name: "Versace Dylan Blue EDT (Tester)", category: "him", size: "100ml", price: 5300, mallPrice: 6400, savings: 1100, brand: "Versace" },
+            { id: 12, name: "Versace Eros EDT (Tester)", category: "him", size: "100ml", price: 5300, mallPrice: 6500, savings: 1200, brand: "Versace" },
+            { id: 13, name: "Versace Eros Flame EDP", category: "him", size: "100ml", price: 6400, mallPrice: 7200, savings: 800, brand: "Versace" },
+            { id: 14, name: "YSL Y EDP", category: "him", size: "100ml", price: 8000, mallPrice: 9800, savings: 1800, brand: "YSL" },
+            { id: 15, name: "YSL MYSLF EDP", category: "him", size: "100ml", price: 8000, mallPrice: 9900, savings: 1900, brand: "YSL" },
+            { id: 16, name: "Armani Acqua di Gio Pour Homme EDT", category: "him", size: "100ml", price: 5900, mallPrice: 6800, savings: 900, brand: "Armani" },
+            { id: 17, name: "Armani Acqua di Gio Profondo EDP", category: "him", size: "100ml", price: 8500, mallPrice: 8900, savings: 400, brand: "Armani" },
+            { id: 18, name: "Calvin Klein CK Eternity Men EDT", category: "him", size: "100ml", price: 4900, mallPrice: 5200, savings: 300, brand: "Calvin Klein" },
+            { id: 19, name: "Dior Sauvage Gift Set", category: "him", size: "Gift Set", price: 3400, mallPrice: 3500, savings: 100, brand: "Dior" },
+            { id: 20, name: "Versace Eau Fraiche EDT", category: "him", size: "100ml", price: 5600, mallPrice: 6200, savings: 600, brand: "Versace" },
+
+            // FOR HER
+            { id: 21, name: "Armani My Way EDP", category: "her", size: "90ml", price: 8100, mallPrice: 9500, savings: 1400, brand: "Armani" },
+            { id: 22, name: "Burberry Goddess EDP Intense", category: "her", size: "100ml", price: 8300, mallPrice: 9800, savings: 1500, brand: "Burberry" },
+            { id: 23, name: "Bvlgari Omnia 4-in-1 Gift Set", category: "her", size: "Gift Set", price: 5300, mallPrice: 5800, savings: 500, brand: "Bvlgari" },
+            { id: 24, name: "Bvlgari 15ml x 3 Gift Set", category: "her", size: "Gift Set", price: 6000, mallPrice: 6500, savings: 500, brand: "Bvlgari" },
+            { id: 25, name: "Bvlgari Omnia Amethyste EDT", category: "her", size: "100ml", price: 7300, mallPrice: 7800, savings: 500, brand: "Bvlgari" },
+            { id: 26, name: "Bvlgari Omnia Crystalline EDT", category: "her", size: "100ml", price: 7300, mallPrice: 7800, savings: 500, brand: "Bvlgari" },
+            { id: 27, name: "Carolina Herrera Good Girl Blush EDP", category: "her", size: "80ml", price: 8500, mallPrice: 9200, savings: 700, brand: "Carolina Herrera" },
+            { id: 28, name: "Chloé Mini 20ml + Nomade 20ml Set", category: "her", size: "Gift Set", price: 5600, mallPrice: 5800, savings: 200, brand: "Chloé" },
+            { id: 29, name: "Clinique Happy Heart", category: "her", size: "100ml", price: 3800, mallPrice: 5100, savings: 1300, brand: "Clinique" },
+            { id: 30, name: "Davidoff Cool Water Woman EDT", category: "her", size: "100ml", price: 3200, mallPrice: 4500, savings: 1300, brand: "Davidoff" },
+            { id: 31, name: "Dior Miss Dior Blooming Bouquet EDT", category: "her", size: "100ml", price: 10500, mallPrice: 11800, savings: 1300, brand: "Dior" },
+            { id: 32, name: "Dolce & Gabbana Light Blue EDT", category: "her", size: "100ml", price: 5900, mallPrice: 6800, savings: 900, brand: "Dolce & Gabbana" },
+            { id: 33, name: "Dolce & Gabbana Light Blue EDT (Tester)", category: "her", size: "100ml", price: 5100, mallPrice: 6800, savings: 1700, brand: "Dolce & Gabbana" },
+            { id: 34, name: "Hermès Twilly d'Hermès EDP", category: "her", size: "50ml", price: 5600, mallPrice: 7200, savings: 1600, brand: "Hermès" },
+            { id: 35, name: "Lancôme Idôle EDP", category: "her", size: "100ml", price: 8100, mallPrice: 9600, savings: 1500, brand: "Lancôme" },
+            { id: 36, name: "Lanvin Éclat d'Arpège EDP", category: "her", size: "100ml", price: 5000, mallPrice: 5800, savings: 800, brand: "Lanvin" },
+            { id: 37, name: "Narciso Rodriguez For Her EDP", category: "her", size: "100ml", price: 7100, mallPrice: 8200, savings: 1100, brand: "Narciso Rodriguez" },
+            { id: 38, name: "Versace Bright Crystal EDT", category: "her", size: "90ml", price: 6100, mallPrice: 6900, savings: 800, brand: "Versace" },
+            { id: 39, name: "Versace Dylan Purple EDP", category: "her", size: "100ml", price: 6800, mallPrice: 7500, savings: 700, brand: "Versace" },
+            { id: 40, name: "YSL Mon Paris EDP", category: "her", size: "90ml", price: 8600, mallPrice: 9800, savings: 1200, brand: "YSL" },
+            { id: 41, name: "YSL Libre EDP", category: "her", size: "90ml", price: 9100, mallPrice: 10500, savings: 1400, brand: "YSL" },
+            { id: 42, name: "YSL Libre EDP Intense", category: "her", size: "90ml", price: 9600, mallPrice: 11200, savings: 1600, brand: "YSL" },
+            { id: 43, name: "YSL Libre Berry Crush EDP", category: "her", size: "90ml", price: 11600, mallPrice: 12500, savings: 900, brand: "YSL" },
+            { id: 44, name: "Dior Miss Dior Blooming Bouquet Gift Set", category: "her", size: "Gift Set", price: 3400, mallPrice: 3500, savings: 100, brand: "Dior" },
+            { id: 45, name: "Dior Miss Dior EDP Gift Set", category: "her", size: "Gift Set", price: 4100, mallPrice: 4200, savings: 100, brand: "Dior" },
+            { id: 46, name: "Narciso Rodriguez Pure Musc EDP", category: "her", size: "100ml", price: 7900, mallPrice: 8500, savings: 600, brand: "Narciso Rodriguez" },
+            { id: 47, name: "Valentino Born in Roma Coral Fantasy EDP", category: "her", size: "100ml", price: 9700, mallPrice: 10200, savings: 500, brand: "Valentino" },
+            { id: 48, name: "Valentino Donna Born in Roma Intense EDP", category: "her", size: "100ml", price: 10000, mallPrice: 10800, savings: 800, brand: "Valentino" },
+            { id: 49, name: "YSL Black Opium EDP", category: "her", size: "50ml", price: 8700, mallPrice: 8900, savings: 200, brand: "YSL" },
+
+            // UNISEX
+            { id: 50, name: "Calvin Klein CK Be EDT", category: "unisex", size: "100ml", price: 4100, mallPrice: 4200, savings: 100, brand: "Calvin Klein" },
+            { id: 51, name: "Jo Malone Peony & Blush Suede Cologne", category: "unisex", size: "100ml", price: 8000, mallPrice: 10800, savings: 2800, brand: "Jo Malone" },
+
+            // NICHE FRAGRANCES
+            { id: 52, name: "Nishane Fan Your Flames X Extrait", category: "niche", size: "100ml", price: 11600, mallPrice: 16500, savings: 4900, brand: "Nishane" },
+            { id: 53, name: "Nishane Hacivat Extrait", category: "niche", size: "100ml", price: 15100, mallPrice: 17800, savings: 2700, brand: "Nishane" },
+            { id: 54, name: "Nishane Wulong Cha Extrait", category: "niche", size: "100ml", price: 12600, mallPrice: 17500, savings: 4900, brand: "Nishane" },
+            { id: 55, name: "Diptyque Do Son EDT", category: "niche", size: "100ml", price: 10000, mallPrice: 12500, savings: 2500, brand: "Diptyque" },
+            { id: 56, name: "Diptyque Eau de Sens EDT", category: "niche", size: "100ml", price: 10500, mallPrice: 12500, savings: 2000, brand: "Diptyque" },
+            { id: 57, name: "Diptyque Eau Rose EDP", category: "niche", size: "75ml", price: 11300, mallPrice: 13800, savings: 2500, brand: "Diptyque" },
+            { id: 58, name: "Diptyque Fleur de Peau EDP", category: "niche", size: "75ml", price: 11900, mallPrice: 13800, savings: 1900, brand: "Diptyque" },
+            { id: 59, name: "Diptyque Orphéon EDP", category: "niche", size: "75ml", price: 11600, mallPrice: 13800, savings: 2200, brand: "Diptyque" },
+            { id: 60, name: "Diptyque Tam Dao EDP", category: "niche", size: "75ml", price: 11600, mallPrice: 13800, savings: 2200, brand: "Diptyque" },
+            { id: 61, name: "Creed Aventus", category: "niche", size: "100ml", price: 21100, mallPrice: 27500, savings: 6400, brand: "Creed" },
+
+            // PRE-ORDER & HIGH END
+            { id: 62, name: "Christian Dior Joy De Parfum", category: "preorder", size: "50ml / 90ml", price: 9600, mallPrice: 10200, savings: 1900, brand: "Dior", notes: "Pre-Order: 50ml (₱9.6k) / 90ml (₱11.6k)" },
+            { id: 63, name: "Christian Dior Joy INTENSE EDP", category: "preorder", size: "50ml / 90ml", price: 9600, mallPrice: 10800, savings: 2600, brand: "Dior", notes: "Pre-Order: 50ml (₱9.6k) / 90ml (₱11.6k)" },
+            { id: 64, name: "Frederic Malle Contre-Jour", category: "preorder", size: "50ml / 100ml", price: 13200, mallPrice: 16500, savings: 3300, brand: "Frederic Malle", notes: "Pre-Order: 50ml (₱13.2k) / 100ml (₱19.7k)" },
+            { id: 65, name: "Hermès Jour d'Hermès EDP", category: "preorder", size: "50ml", price: 6800, mallPrice: 8200, savings: 1400, brand: "Hermès" },
+            { id: 66, name: "Jo Malone Standard Colognes Collection", category: "preorder", size: "30ml / 100ml", price: 4000, mallPrice: 5200, savings: 2600, brand: "Jo Malone", notes: "Pre-Order: 30ml (₱4.0k) / 100ml (₱8.2k)" },
+            { id: 67, name: "Jo Malone Intense Collection", category: "preorder", size: "50ml / 100ml", price: 8300, mallPrice: 9500, savings: 3200, brand: "Jo Malone", notes: "Pre-Order: 50ml (₱8.3k) / 100ml (₱10.0k)" },
+            { id: 68, name: "John Varvatos Artisan EDT", category: "preorder", size: "75ml", price: 4600, mallPrice: 5400, savings: 800, brand: "John Varvatos" },
+            { id: 69, name: "Xerjoff IRISSS EDP", category: "preorder", size: "100ml", price: 27000, mallPrice: 34000, savings: 7000, brand: "Xerjoff" },
+            { id: 70, name: "Xerjoff Torino 21 EDP", category: "preorder", size: "100ml", price: 15800, mallPrice: 18500, savings: 2700, brand: "Xerjoff" },
+            { id: 71, name: "Xerjoff Torino 23 EDP", category: "preorder", size: "50ml", price: 9800, mallPrice: 13500, savings: 3700, brand: "Xerjoff" },
+            { id: 72, name: "Xerjoff Erba Pura EDP", category: "preorder", size: "100ml", price: 11500, mallPrice: 16800, savings: 5300, brand: "Xerjoff" },
+
+            // MINIS & TRAVEL
+            { id: 73, name: "Jo Malone Mini Vials / Sprays", category: "minis", size: "1.5ml", price: 750, mallPrice: 600, savings: 0, brand: "Jo Malone", rare: true },
+            { id: 74, name: "Jo Malone Deluxe Mini Bottles", category: "minis", size: "9ml", price: 1650, mallPrice: 2200, savings: 550, brand: "Jo Malone" }
+        ];
+
+        // CATEGORY DEFINITIONS
+        const categories = [
+            { id: 'all', label: 'All Scents', icon: 'fa-layer-group' },
+            { id: 'him', label: 'For Him', icon: 'fa-mars' },
+            { id: 'her', label: 'For Her', icon: 'fa-venus' },
+            { id: 'unisex', label: 'Unisex', icon: 'fa-genderless' },
+            { id: 'niche', label: 'Niche Luxury', icon: 'fa-crown' },
+            { id: 'preorder', label: 'Pre-Order & High-End', icon: 'fa-box-archive' },
+            { id: 'minis', label: 'Minis & Travel', icon: 'fa-spray-can' }
+        ];
+
+        // STATE MANAGEMENT
+        let currentCategory = 'all';
+        let currentSearchQuery = '';
+        let currentSort = 'default';
+        let currentViewMode = 'grid'; // 'grid' or 'table'
+        let cart = [];
+
+        // INITIALIZE ON LOAD
+        window.onload = function() {
+            renderCategoryTabs();
+            renderCatalog();
+            updateTotalStats();
+            loadCartFromLocalStorage();
+        };
+
+        // RENDER CATEGORY TABS
+        function renderCategoryTabs() {
+            const container = document.getElementById('categoryTabs');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat.id}')" 
+                    class="px-4 py-2 rounded-full text-xs font-cinzel font-semibold tracking-wider whitespace-nowrap transition-all duration-200 flex items-center space-x-1.5 ${currentCategory === cat.id ? 'bg-navy-vintage text-rose-gold-light shadow-md' : 'bg-white text-slate-600 hover:bg-blush border border-rose-gold/20'}">
+                    <i class="fa-solid ${cat.icon} opacity-80"></i>
+                    <span>${cat.label}</span>
+                </button>
+            `).join('');
+        }
+
+        // FILTER AND SORT DATA
+        function getFilteredData() {
+            return catalogData.filter(item => {
+                // Category Filter
+                const matchesCategory = (currentCategory === 'all') || (item.category === currentCategory);
+                // Search Query Filter
+                const query = currentSearchQuery.toLowerCase().trim();
+                const matchesSearch = !query || 
+                    item.name.toLowerCase().includes(query) || 
+                    item.brand.toLowerCase().includes(query) ||
+                    item.size.toLowerCase().includes(query);
+
+                return matchesCategory && matchesSearch;
+            }).sort((a, b) => {
+                if (currentSort === 'price-asc') return a.price - b.price;
+                if (currentSort === 'price-desc') return b.price - a.price;
+                if (currentSort === 'savings-desc') return b.savings - a.savings;
+                if (currentSort === 'name-asc') return a.name.localeCompare(b.name);
+                return 0; // Default PDF order
+            });
+        }
+
+        // RENDER MAIN CATALOG
+        function renderCatalog() {
+            const filteredItems = getFilteredData();
+            const gridContainer = document.getElementById('catalogGrid');
+            const tableBody = document.getElementById('catalogTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const statusInfo = document.getElementById('statusInfoBar');
+
+            // Update Result Counters & Status Bar
+            document.getElementById('resultCount').textContent = filteredItems.length;
+            if (currentSearchQuery.trim() !== '') {
+                statusInfo.classList.remove('hidden');
+                document.getElementById('searchQueryTerm').textContent = currentSearchQuery;
+            } else {
+                statusInfo.classList.add('hidden');
+            }
+
+            if (filteredItems.length === 0) {
+                gridContainer.classList.add('hidden');
+                document.getElementById('catalogTableWrapper').classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            if (currentViewMode === 'grid') {
+                gridContainer.classList.remove('hidden');
+                document.getElementById('catalogTableWrapper').classList.add('hidden');
+
+                gridContainer.innerHTML = filteredItems.map(item => `
+                    <div class="bg-champagne-card rounded-2xl p-5 border border-rose-gold/20 vintage-shadow hover:border-rose-gold/60 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+                        
+                        <!-- Top Tag Badges -->
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-cinzel font-bold px-2.5 py-0.5 rounded-full bg-blush text-rose-gold-dark border border-rose-gold/20 uppercase tracking-widest">
+                                ${getCategoryBadgeLabel(item.category)}
+                            </span>
+                            ${item.savings > 0 ? `
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                    SAVE ₱${item.savings.toLocaleString()}
+                                </span>
+                            ` : item.rare ? `
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-200">
+                                    RARE ITEM
+                                </span>
+                            ` : ''}
+                        </div>
+
+                        <!-- Content Info -->
+                        <div>
+                            <p class="text-[11px] font-cinzel text-slate-400 uppercase tracking-wider font-medium">${item.brand}</p>
+                            <h3 class="font-playfair text-lg font-bold text-navy-vintage leading-snug group-hover:text-rose-gold transition-colors my-1">
+                                ${item.name}
+                            </h3>
+                            <p class="text-xs text-slate-500 font-medium mb-3">
+                                <i class="fa-solid fa-flask text-rose-gold/70 mr-1"></i> Size: ${item.size}
+                            </p>
+                            ${item.notes ? `
+                                <p class="text-[11px] italic text-rose-gold-dark bg-blush/50 p-2 rounded-lg mb-3">
+                                    ${item.notes}
+                                </p>
+                            ` : ''}
+                        </div>
+
+                        <!-- Pricing & Action Row -->
+                        <div class="pt-4 border-t border-rose-gold/10 mt-2">
+                            <div class="flex items-baseline justify-between mb-3">
+                                <div>
+                                    <span class="text-[10px] text-slate-400 block font-cinzel uppercase">Our Boutique Price</span>
+                                    <span class="font-cinzel text-xl font-bold text-navy-vintage">₱${item.price.toLocaleString()}</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] text-slate-400 block font-cinzel uppercase">Mall Price</span>
+                                    <span class="text-xs text-slate-400 line-through">₱${item.mallPrice.toLocaleString()}</span>
+                                </div>
+                            </div>
+
+                            <button onclick="addToCart(${item.id})" class="w-full btn-gradient text-white text-xs font-cinzel font-semibold py-2.5 rounded-xl transition-all shadow-sm flex items-center justify-center space-x-2 active:scale-95">
+                                <i class="fa-solid fa-heart text-rose-gold-light"></i>
+                                <span>ADD TO WISHLIST</span>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                // Table View Render
+                gridContainer.classList.add('hidden');
+                document.getElementById('catalogTableWrapper').classList.remove('hidden');
+
+                tableBody.innerHTML = filteredItems.map(item => `
+                    <tr class="hover:bg-blush/40 transition-colors">
+                        <td class="p-4">
+                            <div class="font-bold text-navy-vintage font-playfair text-sm">${item.name}</div>
+                            <div class="text-[10px] text-slate-400 font-cinzel">${item.brand}</div>
+                            ${item.notes ? `<div class="text-[10px] text-rose-gold italic mt-0.5">${item.notes}</div>` : ''}
+                        </td>
+                        <td class="p-4">
+                            <span class="text-[10px] uppercase font-cinzel font-semibold text-rose-gold bg-blush px-2 py-0.5 rounded-full border border-rose-gold/20">
+                                ${getCategoryBadgeLabel(item.category)}
+                            </span>
+                        </td>
+                        <td class="p-4 font-medium">${item.size}</td>
+                        <td class="p-4 font-bold text-navy-vintage">₱${item.price.toLocaleString()}</td>
+                        <td class="p-4 text-slate-400 line-through">₱${item.mallPrice.toLocaleString()}</td>
+                        <td class="p-4 text-emerald-700 font-bold">
+                            ${item.savings > 0 ? `₱${item.savings.toLocaleString()}` : '-'}
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="addToCart(${item.id})" class="p-2 px-3 bg-navy-vintage text-white text-xs font-cinzel rounded-lg hover:bg-rose-gold transition-colors">
+                                + Add
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // BADGE HELPERS
+        function getCategoryBadgeLabel(cat) {
+            switch(cat) {
+                case 'him': return 'For Him';
+                case 'her': return 'For Her';
+                case 'unisex': return 'Unisex';
+                case 'niche': return 'Niche';
+                case 'preorder': return 'Pre-Order';
+                case 'minis': return 'Minis';
+                default: return 'Fragrance';
+            }
+        }
+
+        // TOTAL METRICS STATS CALCULATOR
+        function updateTotalStats() {
+            document.getElementById('statTotalItems').textContent = catalogData.length;
+        }
+
+        // EVENT HANDLERS
+        function setCategory(catId) {
+            currentCategory = catId;
+            renderCategoryTabs();
+            renderCatalog();
+        }
+
+        function handleSearch(query) {
+            currentSearchQuery = query;
+            // Sync input boxes across mobile & desktop
+            document.getElementById('searchInputDesktop').value = query;
+            document.getElementById('searchInputMobile').value = query;
+            renderCatalog();
+        }
+
+        function clearSearch() {
+            currentSearchQuery = '';
+            document.getElementById('searchInputDesktop').value = '';
+            document.getElementById('searchInputMobile').value = '';
+            renderCatalog();
+        }
+
+        function handleSort(sortValue) {
+            currentSort = sortValue;
+            renderCatalog();
+        }
+
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const gridBtn = document.getElementById('viewGridBtn');
+            const tableBtn = document.getElementById('viewTableBtn');
+
+            if (mode === 'grid') {
+                gridBtn.className = "p-2 px-3 text-xs text-rose-gold bg-blush font-semibold transition-all";
+                tableBtn.className = "p-2 px-3 text-xs text-slate-400 hover:text-navy-vintage transition-all";
+            } else {
+                tableBtn.className = "p-2 px-3 text-xs text-rose-gold bg-blush font-semibold transition-all";
+                gridBtn.className = "p-2 px-3 text-xs text-slate-400 hover:text-navy-vintage transition-all";
+            }
+            renderCatalog();
+        }
+
+        function resetFilters() {
+            currentCategory = 'all';
+            currentSearchQuery = '';
+            currentSort = 'default';
+            document.getElementById('sortBy').value = 'default';
+            clearSearch();
+            renderCategoryTabs();
+        }
+
+        // CART & WISHLIST DRAWER FUNCTIONS
+        function addToCart(itemId) {
+            const item = catalogData.find(i => i.id === itemId);
+            if (!item) return;
+
+            const existingIndex = cart.findIndex(c => c.id === itemId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            saveCartToLocalStorage();
+            updateCartUI();
+            showToast(`Added "${item.name}" to your wishlist`);
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(c => c.id !== itemId);
+            saveCartToLocalStorage();
+            updateCartUI();
+        }
+
+        function updateCartQty(itemId, delta) {
+            const item = cart.find(c => c.id === itemId);
+            if (!item) return;
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                removeFromCart(itemId);
+            } else {
+                saveCartToLocalStorage();
+                updateCartUI();
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            saveCartToLocalStorage();
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartBadge').textContent = totalCount;
+
+            const listContainer = document.getElementById('cartItemsList');
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-heart-crack text-3xl mb-2 text-rose-gold/40"></i>
+                        <p class="font-cinzel text-xs uppercase">Your Wishlist is empty</p>
+                        <p class="text-[11px] mt-1">Browse our catalog and add your favorite scents.</p>
+                    </div>
+                `;
+                document.getElementById('cartOurTotal').textContent = "₱0";
+                document.getElementById('cartMallTotal').textContent = "₱0";
+                document.getElementById('cartSavingsTotal').textContent = "₱0";
+                return;
+            }
+
+            let ourTotal = 0;
+            let mallTotal = 0;
+            let savingsTotal = 0;
+
+            listContainer.innerHTML = cart.map(item => {
+                const itemOurSub = item.price * item.qty;
+                const itemMallSub = item.mallPrice * item.qty;
+                const itemSavSub = (item.mallPrice - item.price) * item.qty;
+
+                ourTotal += itemOurSub;
+                mallTotal += itemMallSub;
+                savingsTotal += itemSavSub;
+
+                return `
+                    <div class="bg-white p-3.5 rounded-xl border border-rose-gold/20 shadow-sm flex items-center justify-between text-xs">
+                        <div class="flex-1 pr-3">
+                            <h4 class="font-bold text-navy-vintage font-playfair leading-tight">${item.name}</h4>
+                            <p class="text-[10px] text-slate-400 font-cinzel">${item.size} • ${item.brand}</p>
+                            <div class="mt-1 font-bold text-rose-gold-dark">₱${item.price.toLocaleString()}</div>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <div class="flex items-center border border-rose-gold/20 rounded-lg overflow-hidden bg-champagne">
+                                <button onclick="updateCartQty(${item.id}, -1)" class="px-2 py-1 text-slate-600 hover:bg-rose-gold hover:text-white transition-colors">-</button>
+                                <span class="px-2 font-semibold text-xs text-navy-vintage">${item.qty}</span>
+                                <button onclick="updateCartQty(${item.id}, 1)" class="px-2 py-1 text-slate-600 hover:bg-rose-gold hover:text-white transition-colors">+</button>
+                            </div>
+                            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-600 p-1">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartOurTotal').textContent = `₱${ourTotal.toLocaleString()}`;
+            document.getElementById('cartMallTotal').textContent = `₱${mallTotal.toLocaleString()}`;
+            document.getElementById('cartSavingsTotal').textContent = `₱${savingsTotal.toLocaleString()}`;
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartDrawerOverlay');
+
+            if (open) {
+                overlay.classList.remove('pointer-events-none');
+                overlay.classList.add('opacity-100');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                overlay.classList.add('pointer-events-none');
+                overlay.classList.remove('opacity-100');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        // GENERATE ORDER INQUIRY MESSAGE TEMPLATE
+        function generateOrderInquiry() {
+            if (cart.length === 0) {
+                showToast("Please add items to your wishlist first!");
+                return;
+            }
+
+            const platform = document.getElementById('platformSelect').value;
+            let ourTotal = 0;
+            let savingsTotal = 0;
+
+            let itemsListStr = cart.map((item, index) => {
+                const sub = item.price * item.qty;
+                const sav = (item.mallPrice - item.price) * item.qty;
+                ourTotal += sub;
+                savingsTotal += sav;
+                return `${index + 1}. ${item.name} (${item.size}) x${item.qty} - ₱${sub.toLocaleString()}`;
+            }).join('\n');
+
+            const message = 
+`🌹 L'HEURE ROSE VINTAGE BOUTIQUE - ORDER INQUIRY 🌹
+Catalog Year: 2026
+
+Hello! I would like to inquire/reserve the following items:
+
+${itemsListStr}
+
+---------------------------------------
+Total Price: ₱${ourTotal.toLocaleString()}
+Estimated Mall Savings: ₱${savingsTotal.toLocaleString()}
+---------------------------------------
+
+Mode of Delivery / Pickup Preference: [Please Specify]
+Full Name: [Your Name]
+Contact Number: [Your Number]
+
+Thank you!`;
+
+            document.getElementById('inquiryTextarea').value = message;
+            document.getElementById('inquiryModal').classList.remove('hidden');
+        }
+
+        function closeInquiryModal() {
+            document.getElementById('inquiryModal').classList.add('hidden');
+        }
+
+        function copyInquiryText() {
+            const textarea = document.getElementById('inquiryTextarea');
+            textarea.select();
+            document.execCommand('copy');
+            
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copied to Clipboard!';
+            copyBtn.classList.replace('bg-navy-vintage', 'bg-emerald-700');
+
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fa-regular fa-copy mr-1"></i> Copy Message';
+                copyBtn.classList.replace('bg-emerald-700', 'bg-navy-vintage');
+            }, 2000);
+
+            showToast("Inquiry copied to clipboard!");
+        }
+
+        // LOCAL STORAGE HELPERS
+        function saveCartToLocalStorage() {
+            localStorage.setItem('lheure_rose_cart', JSON.stringify(cart));
+        }
+
+        function loadCartFromLocalStorage() {
+            const saved = localStorage.getItem('lheure_rose_cart');
+            if (saved) {
+                try {
+                    cart = JSON.parse(saved);
+                    updateCartUI();
+                } catch (e) {
+                    cart = [];
+                }
+            }
+        }
+
+        // TOAST NOTIFICATION HELPERS
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
